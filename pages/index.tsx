@@ -15,6 +15,7 @@ import BankHeader from "@/components/BankHeader";
 import {useApplication} from "@/contexts/Application";
 import {useEffect, useState} from "react";
 import {useApi} from "@/contexts/Api";
+import TransactionList from "@/components/TransactionList";
 
 function IndexPage() {
     const app = useApplication()
@@ -44,30 +45,7 @@ function IndexPage() {
         <Box>
             <CssBaseline/>
             <Header/>
-            <BankHeader>
-                <Typography variant="h6" color="inherit" component="div" sx={{flexGrow: 1}}>
-                    🐘銀 &nbsp;
-                    <Typography variant={"subtitle1"} display={"inline"}>{app.userInfo?.branchName} {app.userInfo?.accountNumber}</Typography>
-                </Typography>
-                <Button variant={"text"} color={"inherit"} onClick={handleClick}>
-                    <Typography>
-                        kokoa0429
-                    </Typography>
-                    <ArrowDropDownIcon/>
-                </Button>
-                <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                    }}
-                >
-                    <MenuItem onClick={handleClose}>口座設定</MenuItem>
-                    <MenuItem onClick={app.logout}>ログアウト</MenuItem>
-                </Menu>
-            </BankHeader>
+            <BankHeader />
             <Container sx={{paddingTop: 2, height: "100%"}} maxWidth={"md"}>
                 <Grid container spacing={1}>
                     <Grid item xs={12} md={8} display={"flex"} flexDirection={"column"} gap={1}>
@@ -81,13 +59,6 @@ function IndexPage() {
                                 </Typography>
                             </CardContent>
                         </Card>
-                        <Box display={"flex"} gap={1}>
-                            <Card>
-                                <CardContent>
-                                    おくる
-                                </CardContent>
-                            </Card>
-                        </Box>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Card>
@@ -95,22 +66,7 @@ function IndexPage() {
                                 <Typography sx={{fontSize: 14}} gutterBottom>
                                     取引履歴
                                 </Typography>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                                            2021-10-01 12:00:00
-                                        </Typography>
-                                        <Typography sx={{fontSize: 14}}>
-                                            送金
-                                        </Typography>
-                                        <Typography>
-                                            kokoa0429
-                                        </Typography>
-                                        <Typography>
-                                            1,000 🐘
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
+                               <TransactionList incomingTransfers={app.userInfo?.incomingTransfers || []} outgoingTransfers={app.userInfo?.outgoingTransfers || []} />
                             </CardContent>
                             <CardActions sx={{flexDirection: "row-reverse"}}>
                                 <Button size="small">もっと見る</Button>

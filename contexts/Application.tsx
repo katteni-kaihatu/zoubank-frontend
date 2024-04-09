@@ -2,11 +2,25 @@ import {createContext, useContext, useEffect, useMemo, useState} from "react";
 import {useApi} from "@/contexts/Api";
 
 export type UserInfo = {
+    id: string;
     accountNumber: string;
     balance: string;
     branchName: string;
     resoniteUserId: string;
     role: string;
+
+    incomingTransfers?: Transaction[];
+    outgoingTransfers?: Transaction[];
+}
+
+export type Transaction = {
+    id: number
+    amount: string
+    createdAt: Date
+    senderUserId: string
+    recipientUserId: string
+
+    externalData?: any
 }
 
 type ApplicationContextType = {
@@ -16,6 +30,7 @@ type ApplicationContextType = {
     userInfo: UserInfo | null;
 
     logout: () => void;
+    reloadUserInfo: () => void;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(undefined);
@@ -33,6 +48,19 @@ export const ApplicationProvider = ({children}: { children: React.ReactNode }) =
             if (result) {
                 setLoggedIn(false)
             }
+        })
+    }
+
+    const reloadUserInfo = () => {
+        api.getUserInfo().then((userInfo) => {
+            if (userInfo) {
+                setLoggedIn(true)
+                setUserInfo(userInfo)
+            } else {
+                setLoggedIn(false)
+            }
+        }).catch((e) => {
+            setLoggedIn(false)
         })
     }
 
@@ -62,9 +90,10 @@ export const ApplicationProvider = ({children}: { children: React.ReactNode }) =
             appReady,
             loggedIn,
             logout,
-            userInfo
+            userInfo,
+            reloadUserInfo
         }
-    }, [appReady, loggedIn, userInfo]);
+    }, [appReady, loggedIn, userInfo, reloadUserInfo]);
 
     return (
         <ApplicationContext.Provider value={value}>

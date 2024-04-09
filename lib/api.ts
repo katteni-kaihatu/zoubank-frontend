@@ -1,3 +1,5 @@
+import {UserInfo} from "@/contexts/Application";
+
 export class ApiClient {
 
     constructor(endpoint?: string) {
@@ -9,7 +11,7 @@ export class ApiClient {
             const result = await fetch(`/api/user`, {
                 credentials: "include",
             })
-            if(result.status === 401) {
+            if (result.status === 401) {
                 return null
             }
             return await result.json()
@@ -43,6 +45,21 @@ export class ApiClient {
                 credentials: "include",
             })
             return result.status === 204
+        } catch (e) {
+            return false
+        }
+    }
+
+    async updateUserInfo(userInfo: Pick<UserInfo, "branchName" | "accountNumber">) {
+        try {
+            const result = await fetch(`/api/user`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userInfo)
+            })
+            return result.status === 200
         } catch (e) {
             return false
         }
