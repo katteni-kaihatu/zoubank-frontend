@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -15,6 +15,8 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@mui/material-nextjs": "^5.15.11",
+    "@types/http-proxy-middleware": "^1.0.0",
+    "http-proxy-middleware": "^3.0.0",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18"
