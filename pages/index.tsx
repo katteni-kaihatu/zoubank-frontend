@@ -32,7 +32,7 @@ function IndexPage() {
     const [amount, setAmount] = useState<number>(0)
 
 
-    if(!app.appReady) return (<></>);
+    if(!app.appReady || !app.loggedIn) return (<></>);
 
     return (
         <Box>
