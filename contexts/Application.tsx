@@ -72,6 +72,11 @@ export const ApplicationProvider = ({children}: { children: React.ReactNode }) =
             return
         }
 
+        if(!recipientUserId) {
+            console.error('invalid recipientUserId')
+            return
+        }
+
         api.sendTransfer({
             senderId: userInfo.id,
             recipientId: recipientUserId,
