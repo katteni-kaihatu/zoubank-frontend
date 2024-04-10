@@ -67,7 +67,7 @@ export const ApplicationProvider = ({children}: { children: React.ReactNode }) =
 
     const sendTransaction = (recipientUserId: string, amount: number) => {
         if(!userInfo) return
-        if(amount < 0) {
+        if(amount <= 0) {
             console.error('invalid amount')
             return
         }
