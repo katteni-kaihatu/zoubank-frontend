@@ -16,7 +16,7 @@ export type UserInfo = {
 export type Transaction = {
     id: number
     amount: string
-    createdAt: Date
+    createdAt: string
     senderUserId: string
     recipientUserId: string
 
@@ -31,6 +31,7 @@ type ApplicationContextType = {
 
     logout: () => void;
     reloadUserInfo: () => void;
+    sendTransaction: (recipientUserId: string, amount: number) => void;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(undefined);
@@ -64,6 +65,23 @@ export const ApplicationProvider = ({children}: { children: React.ReactNode }) =
         })
     }
 
+    const sendTransaction = (recipientUserId: string, amount: number) => {
+        if(!userInfo) return
+        if(amount < 0) {
+            console.error('invalid amount')
+            return
+        }
+
+        api.sendTransfer({
+            senderId: userInfo.id,
+            recipientId: recipientUserId,
+            amount: amount
+        }).then(() => {
+            reloadUserInfo()
+        })
+
+    }
+
     useEffect(() => {
         if (!api) {
             console.log('api is not initialized');
@@ -91,9 +109,10 @@ export const ApplicationProvider = ({children}: { children: React.ReactNode }) =
             loggedIn,
             logout,
             userInfo,
-            reloadUserInfo
+            reloadUserInfo,
+            sendTransaction
         }
-    }, [appReady, loggedIn, userInfo, reloadUserInfo]);
+    }, [appReady, loggedIn, userInfo, reloadUserInfo, sendTransaction]);
 
     return (
         <ApplicationContext.Provider value={value}>

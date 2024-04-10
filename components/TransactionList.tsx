@@ -13,18 +13,18 @@ function TransactionList(props: TransactionListProps) {
     const transactions = incomingTransfers.concat(outgoingTransfers);
     // sort by createdAt
     transactions.sort((a, b) => {
-        return a.createdAt.getTime() - b.createdAt.getTime();
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     });
 
 
     return (
-        <Box>
+        <Box display={"flex"} flexDirection={"column"} gap={2}>
             {transactions.map((transaction) => {
                 return (
                     <Card key={transaction.id}>
                         <CardContent>
                             <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                                {transaction.createdAt.toLocaleString()}
+                                {new Date(transaction.createdAt).toLocaleString()}
                             </Typography>
                             <Typography sx={{fontSize: 14}}>
                                 {transaction.senderUserId === app.userInfo?.id ? "送金" : "受取"}

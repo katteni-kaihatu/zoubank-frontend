@@ -4,9 +4,9 @@ import {
     Button,
     Card,
     CardActions,
-    CardContent,
+    CardContent, CardHeader,
     Container,
-    CssBaseline, Grid, Menu, MenuItem,
+    CssBaseline, Grid, Menu, MenuItem, TextField,
     Toolbar,
     Typography
 } from "@mui/material";
@@ -21,22 +21,15 @@ function IndexPage() {
     const app = useApplication()
 
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     useEffect(() => {
         console.log(app.appReady, app.loggedIn)
         if(app.appReady && !app.loggedIn) {
             location.href = '/login'
         }
     },[app])
+
+    const [sendTo, setSendTo] = useState<string>('')
+    const [amount, setAmount] = useState<number>(0)
 
 
     if(!app.appReady) return (<></>);
@@ -57,6 +50,21 @@ function IndexPage() {
                                 <Typography sx={{fontSize: 36, textAlign: "right"}}>
                                     {app.userInfo?.balance} 🐘
                                 </Typography>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader title={"送金"} />
+                            <CardContent>
+                                <Box display={"flex"} flexDirection={"column"} gap={1}>
+                                    <TextField label={"送金先"} fullWidth size={"small"} value={sendTo} onChange={(e) => setSendTo(e.target.value)}/>
+                                    <TextField label={"金額"} fullWidth size={"small"} value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} error={amount > parseInt(app.userInfo?.balance || "0")} type={"number"} helperText={amount > parseInt(app.userInfo?.balance || "0") ? "残高を超えています" : ""}/>
+                                    <Button variant={"contained"} fullWidth onClick={() => {
+                                        app.sendTransaction(sendTo, amount)
+                                    }}>
+                                        送金する
+                                    </Button>
+                                </Box>
                             </CardContent>
                         </Card>
                     </Grid>

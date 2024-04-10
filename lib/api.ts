@@ -64,4 +64,19 @@ export class ApiClient {
             return false
         }
     }
+
+    async sendTransfer(data: {senderId: string, recipientId: string, amount: number}) {
+        try {
+            const result = await fetch(`/api/transaction`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            return result.status === 200
+        } catch (e) {
+            return false
+        }
+    }
 }
