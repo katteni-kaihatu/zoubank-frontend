@@ -11,7 +11,7 @@ export const config = {
 };
 
 const proxy = createProxyMiddleware({
-    target: 'http://localhost:3000', // NestJSサーバーのアドレス
+    target: process.env.NEXT_PUBLIC_API_URL ?? "http://backend:3000",
     changeOrigin: true,
     pathRewrite: {
         '^/api': '', // /apiを削除
