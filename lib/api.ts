@@ -79,4 +79,16 @@ export class ApiClient {
             return false
         }
     }
+
+    async getResoniteUserDataFromUserId(userId: string) {
+        if(!userId.startsWith("U-"))
+            return null
+        try {
+            const result = await fetch(`/api/proxy/resonite/users/${userId}`)
+            return await result.json()
+        } catch (e) {
+            return null
+        }
+    }
+
 }

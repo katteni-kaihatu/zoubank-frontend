@@ -61,6 +61,7 @@ function BankHeader(props: BankHeaderProps) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
+                        <MenuItem onClick={() => {window.open("https://auth.resonite.love/", "_blank")}}>ログイン設定</MenuItem>
                         <MenuItem onClick={() => {location.href = "/settings"}}>口座設定</MenuItem>
                         <MenuItem onClick={app.logout}>ログアウト</MenuItem>
                     </Menu>

@@ -20,6 +20,9 @@ export type Transaction = {
     senderUserId: string
     recipientUserId: string
 
+    sender: UserInfo
+    recipient: UserInfo
+
     externalData?: any
 }
 
