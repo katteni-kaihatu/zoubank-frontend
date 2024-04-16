@@ -57,7 +57,7 @@ function IndexPage() {
                             <CardHeader title={"送金"} />
                             <CardContent>
                                 <Box display={"flex"} flexDirection={"column"} gap={1}>
-                                    <TextField label={"送金先"} fullWidth size={"small"} value={sendTo} onChange={(e) => setSendTo(e.target.value)}/>
+                                    <TextField label={"送金先(UserID U-...)"} fullWidth size={"small"} value={sendTo} onChange={(e) => setSendTo(e.target.value)}/>
                                     <TextField label={"金額"} fullWidth size={"small"} value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} error={amount > parseInt(app.userInfo?.balance || "0")} type={"number"} helperText={amount > parseInt(app.userInfo?.balance || "0") ? "残高を超えています" : ""}/>
                                     <Button variant={"contained"} fullWidth onClick={() => {
                                         app.sendTransaction(sendTo, amount)
