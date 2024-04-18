@@ -2,6 +2,7 @@ import {AppBar, Button, Container, Menu, MenuItem, Toolbar, Typography} from "@m
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import {useApplication} from "@/contexts/Application";
 import {useEffect, useState} from "react";
+import {Zou} from "@/components/Zou";
 
 export type BankHeaderProps = {
     children?: React.ReactNode
@@ -27,7 +28,7 @@ function BankHeader(props: BankHeaderProps) {
                 <Container>
                     <Toolbar variant="dense">
                         <Typography variant="h6" color="inherit" component="div" sx={{flexGrow: 1}}>
-                            🐘銀 &nbsp;
+                            <Zou />銀 &nbsp;
                             <Typography variant={"subtitle1"}
                                         display={"inline"}>未ログイン</Typography>
                         </Typography>
@@ -42,7 +43,7 @@ function BankHeader(props: BankHeaderProps) {
             <Container>
                 <Toolbar variant="dense">
                     <Typography variant="h6" color="inherit" component="div" sx={{flexGrow: 1}}>
-                        🐘銀 &nbsp;
+                        <Zou />銀 &nbsp;
                         <Typography variant={"subtitle1"}
                                     display={"inline"}>{app.userInfo?.branchName} {app.userInfo?.accountNumber}</Typography>
                     </Typography>

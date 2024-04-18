@@ -2,6 +2,7 @@ import {Transaction, useApplication} from "@/contexts/Application";
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import {useApi} from "@/contexts/Api";
 import {useState} from "react";
+import {Zou} from "@/components/Zou";
 
 export type TransactionListProps = {
     incomingTransfers: Transaction[];
@@ -69,7 +70,7 @@ function TransactionList(props: TransactionListProps) {
                                     getUsernameFromId(transaction.sender.resoniteUserId) }
                             </Typography>
                             <Typography>
-                                {transaction.amount} 🐘
+                                {transaction.amount} <Zou width={"18px"} height={"18px"}/>
                             </Typography>
                             { transaction.externalData?.memo &&
                                 <Typography>

@@ -16,6 +16,7 @@ import {useApplication} from "@/contexts/Application";
 import {useEffect, useState} from "react";
 import {useApi} from "@/contexts/Api";
 import TransactionList from "@/components/TransactionList";
+import {Zou} from "@/components/Zou";
 
 function IndexPage() {
     const app = useApplication()
@@ -48,7 +49,7 @@ function IndexPage() {
                                     {app.userInfo?.branchName} {app.userInfo?.accountNumber}
                                 </Typography>
                                 <Typography sx={{fontSize: 36, textAlign: "right"}}>
-                                    {app.userInfo?.balance} 🐘
+                                    {app.userInfo?.balance} <Zou height={"40px"} width={"40px"}/>
                                 </Typography>
                             </CardContent>
                         </Card>
