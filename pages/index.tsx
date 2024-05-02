@@ -44,14 +44,14 @@ function IndexPage() {
       <CssBaseline />
       <Header />
       <BankHeader />
-      <Container sx={{ paddingTop: 2, height: "100%" }} maxWidth={"md"}>
+      <Container sx={{ paddingTop: 2, height: "100%" }} maxWidth="md">
         <Grid container spacing={1}>
           <Grid
             item
             xs={12}
             md={8}
-            display={"flex"}
-            flexDirection={"column"}
+            display="flex"
+            flexDirection="column"
             gap={1}
           >
             <Card>
@@ -60,30 +60,30 @@ function IndexPage() {
                   {app.userInfo?.branchName} {app.userInfo?.accountNumber}
                 </Typography>
                 <Typography sx={{ fontSize: 36, textAlign: "right" }}>
-                  {app.userInfo?.balance} <Zou height={"40px"} width={"40px"} />
+                  {app.userInfo?.balance} <Zou height="40px" width="40px" />
                 </Typography>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader title={"送金"} />
+              <CardHeader title="送金" />
               <CardContent>
-                <Box display={"flex"} flexDirection={"column"} gap={1}>
+                <Box display="flex" flexDirection="column" gap={1}>
                   <TextField
-                    label={"送金先(UserID U-...)"}
+                    label="送金先(UserID U-...)"
                     fullWidth
-                    size={"small"}
+                    size="small"
                     value={sendTo}
                     onChange={(e) => setSendTo(e.target.value)}
                   />
                   <TextField
-                    label={"金額"}
+                    label="金額"
                     fullWidth
-                    size={"small"}
+                    size="small"
                     value={amount}
                     onChange={(e) => setAmount(parseInt(e.target.value))}
                     error={amount > parseInt(app.userInfo?.balance || "0")}
-                    type={"number"}
+                    type="number"
                     helperText={
                       amount > parseInt(app.userInfo?.balance || "0")
                         ? "残高を超えています"
@@ -91,7 +91,7 @@ function IndexPage() {
                     }
                   />
                   <Button
-                    variant={"contained"}
+                    variant="contained"
                     fullWidth
                     onClick={() => {
                       app.sendTransaction(sendTo, amount);

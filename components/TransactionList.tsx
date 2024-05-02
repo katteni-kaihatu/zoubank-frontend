@@ -71,7 +71,7 @@ function TransactionElement(props: {
         </Typography>
         <Typography>{username}</Typography>
         <Typography>
-          {props.transaction.amount} <Zou width={"18px"} height={"18px"} />
+          {props.transaction.amount} <Zou width="18px" height="18px" />
         </Typography>
         {props.transaction.externalData?.memo && (
           <Typography>{props.transaction.externalData?.memo}</Typography>
@@ -104,7 +104,7 @@ function TransactionList(props: TransactionListProps) {
   );
 
   return (
-    <Box display={"flex"} flexDirection={"column"} gap={2}>
+    <Box display="flex" flexDirection="column" gap={2}>
       {transactions.map((transaction) => {
         return (
           <TransactionElement

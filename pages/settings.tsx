@@ -61,18 +61,18 @@ function SettingsPage() {
       <CssBaseline />
       <Header />
       <BankHeader />
-      <Container sx={{ paddingTop: 2, height: "100%" }} maxWidth={"md"}>
-        <Button size={"large"} variant={"outlined"} href={"/"}>
+      <Container sx={{ paddingTop: 2, height: "100%" }} maxWidth="md">
+        <Button size="large" variant="outlined" href="/">
           {"< 戻る"}
         </Button>
       </Container>
-      <Container sx={{ paddingTop: 2, height: "100%" }} maxWidth={"sm"}>
+      <Container sx={{ paddingTop: 2, height: "100%" }} maxWidth="sm">
         <Card>
-          <CardHeader title={"口座設定"} />
+          <CardHeader title="口座設定" />
           <CardContent>
-            <Box display={"flex"} flexDirection={"column"} gap={2}>
+            <Box display="flex" flexDirection="column" gap={2}>
               <TextField
-                label={"支店名"}
+                label="支店名"
                 value={branchName}
                 onChange={(e) => setBranchName(e.target.value)}
                 fullWidth
@@ -83,7 +83,7 @@ function SettingsPage() {
                 disabled={!app.appReady}
               />
               <TextField
-                label={"口座番号"}
+                label="口座番号"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 fullWidth
@@ -101,7 +101,7 @@ function SettingsPage() {
           </CardContent>
           <CardActions>
             <Button
-              variant={"contained"}
+              variant="contained"
               sx={{ marginLeft: "auto" }}
               onClick={handleSave}
             >

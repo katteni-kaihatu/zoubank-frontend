@@ -6,8 +6,8 @@ export type ZouProps = {
 export const Zou = ({ height, width }: ZouProps) => {
   return (
     <img
-      src={"/zou.svg"}
-      alt={"Zou"}
+      src="/zou.svg"
+      alt="Zou"
       style={{
         height: height ?? "24px",
         width: width ?? "24px",

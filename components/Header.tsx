@@ -7,7 +7,7 @@ export const Header = () => {
   const { language, setLanguage } = useTranslation();
 
   return (
-    <AppBar position="static" color={"inherit"} elevation={1}>
+    <AppBar position="static" color="inherit" elevation={1}>
       <Toolbar variant="dense">
         <Typography
           variant="h6"
@@ -17,7 +17,7 @@ export const Header = () => {
         >
           <Zou />
           Bank &nbsp;
-          <Typography variant={"subtitle2"} display={"inline"}>
+          <Typography variant="subtitle2" display="inline">
             via Resonite.Love
           </Typography>
         </Typography>

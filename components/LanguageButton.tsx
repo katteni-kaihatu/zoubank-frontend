@@ -15,19 +15,19 @@ export const LanguageButton = ({
     <Stack direction="row" spacing={0.3}>
       <Chip
         onClick={() => setLanguage("ja")}
-        label={"JA"}
+        label="JA"
         clickable
         color={language === "ja" ? "primary" : "default"}
       />
       <Chip
         onClick={() => setLanguage("en")}
-        label={"EN"}
+        label="EN"
         clickable
         color={language === "en" ? "primary" : "default"}
       />
       <Chip
         onClick={() => setLanguage("ko")}
-        label={"KO"}
+        label="KO"
         clickable
         color={language === "ko" ? "primary" : "default"}
       />

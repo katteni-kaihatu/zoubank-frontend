@@ -31,7 +31,7 @@ function BankHeader(props: BankHeaderProps) {
 
   if (!app.loggedIn) {
     return (
-      <AppBar position="relative" color={"primary"} elevation={1}>
+      <AppBar position="relative" color="primary" elevation={1}>
         <Container>
           <Toolbar variant="dense">
             <Typography
@@ -41,7 +41,7 @@ function BankHeader(props: BankHeaderProps) {
               sx={{ flexGrow: 1 }}
             >
               <Zou />銀 &nbsp;
-              <Typography variant={"subtitle1"} display={"inline"}>
+              <Typography variant="subtitle1" display="inline">
                 未ログイン
               </Typography>
             </Typography>
@@ -52,7 +52,7 @@ function BankHeader(props: BankHeaderProps) {
   }
 
   return (
-    <AppBar position="relative" color={"primary"} elevation={1}>
+    <AppBar position="relative" color="primary" elevation={1}>
       <Container>
         <Toolbar variant="dense">
           <Typography
@@ -62,11 +62,11 @@ function BankHeader(props: BankHeaderProps) {
             sx={{ flexGrow: 1 }}
           >
             <Zou />銀 &nbsp;
-            <Typography variant={"subtitle1"} display={"inline"}>
+            <Typography variant="subtitle1" display="inline">
               {app.userInfo?.branchName} {app.userInfo?.accountNumber}
             </Typography>
           </Typography>
-          <Button variant={"text"} color={"inherit"} onClick={handleClick}>
+          <Button variant="text" color="inherit" onClick={handleClick}>
             <Typography>{app.userInfo?.resoniteUserId}</Typography>
             <ArrowDropDownIcon />
           </Button>
