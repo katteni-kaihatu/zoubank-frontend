@@ -35,7 +35,7 @@ function LoginPage() {
         }
       });
     }
-  }, []);
+  }, [api]);
 
   if (!app.appReady) return <></>;
 

@@ -1,5 +1,4 @@
 // pages/api/[...all].ts
-// @ts-ignore
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -18,10 +17,12 @@ const proxy = createProxyMiddleware({
   },
 });
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+const api = (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "OPTIONS") {
     res.end();
     return;
   }
   return proxy(req, res);
 };
+
+export default api;

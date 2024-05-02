@@ -13,7 +13,7 @@ import { usePersistent } from "./usePersistent";
 export interface ITranslationState {
   language: Language;
   setLanguage: (language: Language) => void;
-  t: any;
+  t: unknown;
 }
 
 export interface ITranslationProps {

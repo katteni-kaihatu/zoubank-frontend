@@ -73,9 +73,12 @@ function TransactionElement(props: {
         <Typography>
           {props.transaction.amount} <Zou width="18px" height="18px" />
         </Typography>
-        {props.transaction.externalData?.memo && (
-          <Typography>{props.transaction.externalData?.memo}</Typography>
-        )}
+        {props.transaction.externalData !== null &&
+          typeof props.transaction.externalData === "object" &&
+          "memo" in props.transaction.externalData &&
+          typeof props.transaction.externalData.memo === "string" && (
+            <Typography>{props.transaction.externalData.memo}</Typography>
+          )}
       </CardContent>
     </Card>
   );

@@ -9,14 +9,14 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useApplication } from "@/contexts/Application";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Zou } from "@/components/Zou";
 
 export type BankHeaderProps = {
   children?: React.ReactNode;
 };
 
-function BankHeader(props: BankHeaderProps) {
+function BankHeader(_props: BankHeaderProps) {
   const app = useApplication();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

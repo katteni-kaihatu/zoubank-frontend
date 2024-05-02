@@ -5,6 +5,7 @@ export type ZouProps = {
 
 export const Zou = ({ height, width }: ZouProps) => {
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src="/zou.svg"
       alt="Zou"

@@ -7,14 +7,10 @@ import {
   CardHeader,
   Container,
   CssBaseline,
-  Menu,
-  MenuItem,
   TextField,
-  Typography,
 } from "@mui/material";
 import { Header } from "@/components/Header";
 import BankHeader from "@/components/BankHeader";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useApplication } from "@/contexts/Application";
 import { useEffect, useState } from "react";
 import { useApi } from "@/contexts/Api";

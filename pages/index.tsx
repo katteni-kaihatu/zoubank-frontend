@@ -1,6 +1,5 @@
 import { Header } from "@/components/Header";
 import {
-  AppBar,
   Box,
   Button,
   Card,
@@ -10,17 +9,12 @@ import {
   Container,
   CssBaseline,
   Grid,
-  Menu,
-  MenuItem,
   TextField,
-  Toolbar,
   Typography,
 } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import BankHeader from "@/components/BankHeader";
 import { useApplication } from "@/contexts/Application";
 import { useEffect, useState } from "react";
-import { useApi } from "@/contexts/Api";
 import TransactionList from "@/components/TransactionList";
 import { Zou } from "@/components/Zou";
 

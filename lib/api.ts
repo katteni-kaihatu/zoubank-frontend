@@ -1,7 +1,7 @@
 import { UserInfo } from "@/contexts/Application";
 
 export class ApiClient {
-  constructor(endpoint?: string) {
+  constructor(_endpoint?: string) {
     console.log("oOoOoOoOoO API SERVICE CREATED OoOoOoOoOo");
   }
 

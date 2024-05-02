@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useApi } from "@/contexts/Api";
 
 export type UserInfo = {
@@ -23,7 +30,7 @@ export type Transaction = {
   sender: UserInfo;
   recipient: UserInfo;
 
-  externalData?: any;
+  externalData?: unknown;
 };
 
 type ApplicationContextType = {
@@ -52,16 +59,16 @@ export const ApplicationProvider = ({
 
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     // cookie connect.sid を消す
     api.logout().then((result) => {
       if (result) {
         setLoggedIn(false);
       }
     });
-  };
+  }, [api]);
 
-  const reloadUserInfo = () => {
+  const reloadUserInfo = useCallback(() => {
     api
       .getUserInfo()
       .then((userInfo) => {
@@ -72,33 +79,36 @@ export const ApplicationProvider = ({
           setLoggedIn(false);
         }
       })
-      .catch((e) => {
+      .catch(() => {
         setLoggedIn(false);
       });
-  };
+  }, [api]);
 
-  const sendTransaction = (recipientUserId: string, amount: number) => {
-    if (!userInfo) return;
-    if (amount <= 0) {
-      console.error("invalid amount");
-      return;
-    }
+  const sendTransaction = useCallback(
+    (recipientUserId: string, amount: number) => {
+      if (!userInfo) return;
+      if (amount <= 0) {
+        console.error("invalid amount");
+        return;
+      }
 
-    if (!recipientUserId) {
-      console.error("invalid recipientUserId");
-      return;
-    }
+      if (!recipientUserId) {
+        console.error("invalid recipientUserId");
+        return;
+      }
 
-    api
-      .sendTransfer({
-        senderId: userInfo.id,
-        recipientId: recipientUserId,
-        amount: amount,
-      })
-      .then(() => {
-        reloadUserInfo();
-      });
-  };
+      api
+        .sendTransfer({
+          senderId: userInfo.id,
+          recipientId: recipientUserId,
+          amount: amount,
+        })
+        .then(() => {
+          reloadUserInfo();
+        });
+    },
+    [api, userInfo, reloadUserInfo],
+  );
 
   useEffect(() => {
     if (!api) {
@@ -118,7 +128,7 @@ export const ApplicationProvider = ({
 
         setAppReady(true);
       })
-      .catch((e) => {
+      .catch(() => {
         setLoggedIn(false);
         setAppReady(true);
       });
@@ -133,7 +143,7 @@ export const ApplicationProvider = ({
       reloadUserInfo,
       sendTransaction,
     };
-  }, [appReady, loggedIn, userInfo, reloadUserInfo, sendTransaction]);
+  }, [appReady, loggedIn, logout, userInfo, reloadUserInfo, sendTransaction]);
 
   return (
     <ApplicationContext.Provider value={value}>
