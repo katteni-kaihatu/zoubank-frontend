@@ -1,5 +1,5 @@
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const CSR = dynamic(() => import('./CSRInner'), { ssr: false });
+const CSR = dynamic(() => import("./CSRInner"), { ssr: false });
 
 export default CSR;
