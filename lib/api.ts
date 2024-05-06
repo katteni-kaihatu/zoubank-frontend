@@ -79,7 +79,7 @@ export class ApiClient {
         },
         body: JSON.stringify(data),
       });
-      return result.status === 200;
+      return result.status === 200 || result.status === 201;
     } catch (e) {
       return false;
     }

@@ -41,7 +41,10 @@ type ApplicationContextType = {
 
   logout: () => void;
   reloadUserInfo: () => void;
-  sendTransaction: (recipientUserId: string, amount: number) => void;
+  sendTransaction: (
+    recipientUserId: string,
+    amount: number,
+  ) => Promise<boolean>;
 };
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -85,27 +88,29 @@ export const ApplicationProvider = ({
   }, [api]);
 
   const sendTransaction = useCallback(
-    (recipientUserId: string, amount: number) => {
-      if (!userInfo) return;
+    async (recipientUserId: string, amount: number) => {
+      if (!userInfo) return false;
       if (amount <= 0) {
         console.error("invalid amount");
-        return;
+        return false;
       }
 
       if (!recipientUserId) {
         console.error("invalid recipientUserId");
-        return;
+        return false;
       }
-
-      api
-        .sendTransfer({
+      if (
+        await api.sendTransfer({
           senderId: userInfo.id,
           recipientId: recipientUserId,
           amount: amount,
         })
-        .then(() => {
-          reloadUserInfo();
-        });
+      ) {
+        reloadUserInfo();
+        return true;
+      } else {
+        return false;
+      }
     },
     [api, userInfo, reloadUserInfo],
   );
