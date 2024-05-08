@@ -30,6 +30,7 @@ function IndexPage() {
 
   const [sendTo, setSendTo] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
+  const [memo, setMemo] = useState<string>();
 
   if (!app.appReady || !app.loggedIn) return <></>;
 
@@ -84,11 +85,19 @@ function IndexPage() {
                         : ""
                     }
                   />
+                  <TextField
+                    label="メモ"
+                    fullWidth
+                    size="small"
+                    value={memo}
+                    onChange={(e) => setMemo(e.target.value)}
+                    type="text"
+                  />
                   <Button
                     variant="contained"
                     fullWidth
                     onClick={() => {
-                      app.sendTransaction(sendTo, amount);
+                      app.sendTransaction(sendTo, amount, memo);
                     }}
                   >
                     送金する
