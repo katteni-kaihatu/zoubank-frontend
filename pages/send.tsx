@@ -46,9 +46,14 @@ const LocalTransactionLogView = (props: { log: LocalTransactionLog }) => {
   }
 };
 
-const SendCard = (props: { user: ResoniteUser; amount: number }) => {
+const SendCard = (props: {
+  user: ResoniteUser;
+  amount: number;
+  memo?: string;
+}) => {
   const app = useApplication();
   const [amount, setAmount] = useState<number>(props.amount);
+  const [memo, setMemo] = useState<string | undefined>(props.memo);
   const [loading, setLoading] = useState(false);
   const [logs, setLogs] = useState<LocalTransactionLog[]>([]);
 
@@ -71,12 +76,18 @@ const SendCard = (props: { user: ResoniteUser; amount: number }) => {
     },
     [setAmount],
   );
+  const memoTextFieldOnChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setMemo(e.target.value);
+    },
+    [setMemo],
+  );
 
   const sendTransaction = useCallback(async () => {
     if (loading) return;
     try {
       setLoading(true);
-      const result = await app.sendTransaction(props.user.id, amount);
+      const result = await app.sendTransaction(props.user.id, amount, memo);
       if (!result) {
         throw new Error("failed to send transaction");
       }
@@ -91,7 +102,7 @@ const SendCard = (props: { user: ResoniteUser; amount: number }) => {
       setLoading(false);
       setLogs((logs) => [{ status: "error", amount }, ...logs]);
     }
-  }, [loading, app, props.user.id, amount, setLoading, setLogs]);
+  }, [loading, app, props.user.id, amount, setLoading, setLogs, memo]);
 
   return (
     <Card>
@@ -105,15 +116,19 @@ const SendCard = (props: { user: ResoniteUser; amount: number }) => {
           <Typography sx={{ fontSize: 32, textAlign: "center" }} gutterBottom>
             {`${username} さんに送る`}
           </Typography>
-          <Typography sx={{ fontSize: 14 }} gutterBottom>
-            送金額
-          </Typography>
           <TextField
+            label="金額"
             type="number"
             value={amount}
             onChange={amountTextFieldOnChange}
             error={errorText !== null}
             helperText={errorText}
+          />
+          <TextField
+            label="メモ"
+            type="text"
+            value={memo}
+            onChange={memoTextFieldOnChange}
           />
           <Button
             variant="contained"
@@ -143,7 +158,7 @@ function SendPage() {
   }, [app]);
   const router = useRouter();
 
-  const { sendTo: rawSendTo, amount: rawAmount } = router.query;
+  const { sendTo: rawSendTo, amount: rawAmount, memo: RawMemo } = router.query;
 
   const resoniteUser = useResoniteUser(
     typeof rawSendTo === "string" ? rawSendTo : "",
@@ -154,6 +169,7 @@ function SendPage() {
     parseInt(rawAmount) > 0
       ? parseInt(rawAmount)
       : 1;
+  const memo = typeof RawMemo === "string" ? RawMemo : undefined;
 
   return (
     <Box>
@@ -186,7 +202,11 @@ function SendPage() {
                   </CardContent>
                 </Card>
 
-                <SendCard user={resoniteUser.data} amount={amount} />
+                <SendCard
+                  user={resoniteUser.data}
+                  amount={amount}
+                  memo={memo}
+                />
               </>
             )}
           {resoniteUser.status === "loading" ||

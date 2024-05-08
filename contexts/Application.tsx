@@ -44,6 +44,7 @@ type ApplicationContextType = {
   sendTransaction: (
     recipientUserId: string,
     amount: number,
+    memo?: string,
   ) => Promise<boolean>;
 };
 
@@ -88,7 +89,7 @@ export const ApplicationProvider = ({
   }, [api]);
 
   const sendTransaction = useCallback(
-    async (recipientUserId: string, amount: number) => {
+    async (recipientUserId: string, amount: number, memo?: string) => {
       if (!userInfo) return false;
       if (amount <= 0) {
         console.error("invalid amount");
@@ -104,6 +105,7 @@ export const ApplicationProvider = ({
           senderId: userInfo.id,
           recipientId: recipientUserId,
           amount: amount,
+          memo,
         })
       ) {
         reloadUserInfo();

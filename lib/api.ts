@@ -70,6 +70,7 @@ export class ApiClient {
     senderId: string;
     recipientId: string;
     amount: number;
+    memo?: string;
   }) {
     try {
       const result = await fetch(`/api/transaction`, {
