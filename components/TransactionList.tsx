@@ -1,7 +1,14 @@
 import { Transaction, useApplication } from "@/contexts/Application";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from "@mui/material";
 import { useApi } from "@/contexts/Api";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Zou } from "@/components/Zou";
 
 const usernameCache = new Map<
@@ -92,6 +99,8 @@ export type TransactionListProps = {
 function TransactionList(props: TransactionListProps) {
   const app = useApplication();
 
+  const [viewSize, setViewSize] = useState(5);
+
   const { incomingTransfers, outgoingTransfers } = props;
   const transactions = useMemo(
     () =>
@@ -102,22 +111,38 @@ function TransactionList(props: TransactionListProps) {
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
         })
-        .slice(0, 5),
-    [incomingTransfers, outgoingTransfers],
+        .slice(0, viewSize),
+    [incomingTransfers, outgoingTransfers, viewSize],
   );
 
+  const addViewSize = useCallback(() => {
+    setViewSize((size) => size + 5);
+  }, [setViewSize]);
+
   return (
-    <Box display="flex" flexDirection="column" gap={2}>
-      {transactions.map((transaction) => {
-        return (
-          <TransactionElement
-            key={transaction.id}
-            senderUserId={app.userInfo?.id || ""}
-            transaction={transaction}
-          />
-        );
-      })}
-    </Box>
+    <Card>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} gutterBottom>
+          取引履歴
+        </Typography>
+        <Box display="flex" flexDirection="column" gap={2}>
+          {transactions.map((transaction) => {
+            return (
+              <TransactionElement
+                key={transaction.id}
+                senderUserId={app.userInfo?.id || ""}
+                transaction={transaction}
+              />
+            );
+          })}
+        </Box>
+      </CardContent>
+      <CardActions sx={{ flexDirection: "row-reverse" }}>
+        <Button size="small" onClick={addViewSize}>
+          もっと見る
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 

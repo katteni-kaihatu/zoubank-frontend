@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Container,
@@ -107,20 +106,10 @@ function IndexPage() {
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Typography sx={{ fontSize: 14 }} gutterBottom>
-                  取引履歴
-                </Typography>
-                <TransactionList
-                  incomingTransfers={app.userInfo?.incomingTransfers || []}
-                  outgoingTransfers={app.userInfo?.outgoingTransfers || []}
-                />
-              </CardContent>
-              <CardActions sx={{ flexDirection: "row-reverse" }}>
-                <Button size="small">もっと見る</Button>
-              </CardActions>
-            </Card>
+            <TransactionList
+              incomingTransfers={app.userInfo?.incomingTransfers || []}
+              outgoingTransfers={app.userInfo?.outgoingTransfers || []}
+            />
           </Grid>
         </Grid>
       </Container>
