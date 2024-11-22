@@ -50,6 +50,7 @@ const SendCard = (props: {
   user: ResoniteUser;
   amount: number;
   memo?: string;
+  customTransactionId?: string;
 }) => {
   const app = useApplication();
   const [amount, setAmount] = useState<number>(props.amount);
@@ -87,7 +88,8 @@ const SendCard = (props: {
     if (loading) return;
     try {
       setLoading(true);
-      const result = await app.sendTransaction(props.user.id, amount, memo);
+      const pack = props.customTransactionId ? { customData: { customTransactionId: props.customTransactionId } } : {};
+      const result = await app.sendTransaction(props.user.id, amount, memo, pack);
       if (!result) {
         throw new Error("failed to send transaction");
       }
@@ -158,7 +160,7 @@ function SendPage() {
   }, [app]);
   const router = useRouter();
 
-  const { sendTo: rawSendTo, amount: rawAmount, memo: RawMemo } = router.query;
+  const { sendTo: rawSendTo, amount: rawAmount, memo: RawMemo, customTransactionId: RawCTId } = router.query;
 
   const resoniteUser = useResoniteUser(
     typeof rawSendTo === "string" ? rawSendTo : "",
@@ -170,6 +172,7 @@ function SendPage() {
       ? parseInt(rawAmount)
       : 1;
   const memo = typeof RawMemo === "string" ? RawMemo : undefined;
+  const customTransactionId = typeof RawCTId === "string" ? RawCTId : undefined;
 
   return (
     <Box>
@@ -206,6 +209,7 @@ function SendPage() {
                   user={resoniteUser.data}
                   amount={amount}
                   memo={memo}
+                  customTransactionId={customTransactionId}
                 />
               </>
             )}

@@ -71,14 +71,15 @@ export class ApiClient {
         recipientId: string;
         amount: number;
         memo?: string;
-    }, customTransactionId?: string) {
+        customData?: Record<string, unknown>;
+    }) {
         try {
             const result = await fetch(`/api/transaction`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({...data, customData: {customTransactionId}}),
+                body: JSON.stringify(data),
             });
             return result.status === 200 || result.status === 201;
         } catch (e) {
