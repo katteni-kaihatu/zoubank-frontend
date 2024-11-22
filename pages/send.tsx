@@ -88,7 +88,7 @@ const SendCard = (props: {
     if (loading) return;
     try {
       setLoading(true);
-      const pack = props.customTransactionId ? { customData: { customTransactionId: props.customTransactionId } } : {};
+      const pack = props.customTransactionId ? { customTransactionId: props.customTransactionId }: {};
       const result = await app.sendTransaction(props.user.id, amount, memo, pack);
       if (!result) {
         throw new Error("failed to send transaction");
