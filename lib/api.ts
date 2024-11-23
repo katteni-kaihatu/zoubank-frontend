@@ -96,4 +96,13 @@ export class ApiClient {
             return null;
         }
     }
+
+    async getZouBankUserFromUserId(userId: string) {
+        try {
+            const result = await fetch(`/api/user/${userId}`);
+            return await result.json();
+        } catch (e) {
+            return null;
+        }
+    }
 }

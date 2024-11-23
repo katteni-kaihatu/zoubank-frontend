@@ -87,13 +87,24 @@ export const useResoniteUser = (userId: string): Response<ResoniteUser> => {
         }
       })();
     } else {
-      setUser({
-        status: "success",
-        data: {
-          id: userId,
-          username: userId,
-        },
-      });
+      (async () => {
+        const zoubankUser = await api.getZouBankUserFromUserId(userId);
+
+        if(!zoubankUser) {
+            setUser({
+                status: "error",
+            });
+            return;
+        }
+
+        setUser({
+          status: "success",
+          data: {
+            id: userId,
+            username: zoubankUser.resoniteUserId,
+          },
+        });
+      })();
     }
   }, [api, userId]);
 
