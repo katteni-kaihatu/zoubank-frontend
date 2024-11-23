@@ -88,7 +88,11 @@ export const useResoniteUser = (userId: string): Response<ResoniteUser> => {
       })();
     } else {
       setUser({
-        status: "error",
+        status: "success",
+        data: {
+          id: userId,
+          username: userId,
+        },
       });
     }
   }, [api, userId]);
