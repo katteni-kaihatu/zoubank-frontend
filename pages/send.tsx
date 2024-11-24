@@ -155,8 +155,8 @@ function SendPage() {
 
   useEffect(() => {
     if (app.appReady && !app.loggedIn) {
-      // save path for after login
-      localStorage.setItem("redirectPath", location.pathname);
+      // save path and query for after login
+      localStorage.setItem("redirectPath", location.pathname + location.search);
       location.href = "/login";
     }
   }, [app]);
