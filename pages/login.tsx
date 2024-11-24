@@ -31,7 +31,14 @@ function LoginPage() {
       history.replaceState(null, "", url.toString());
       api.login(RLToken).then((result) => {
         if (result) {
-          location.href = "/";
+          // if localstorage redirectPath exists, redirect to it
+            const redirectPath = localStorage.getItem("redirectPath");
+            if (redirectPath) {
+              localStorage.removeItem("redirectPath");
+              location.href = redirectPath;
+            } else {
+                location.href = "/";
+            }
         }
       });
     }

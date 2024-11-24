@@ -155,6 +155,8 @@ function SendPage() {
 
   useEffect(() => {
     if (app.appReady && !app.loggedIn) {
+      // save path for after login
+      localStorage.setItem("redirectPath", location.pathname);
       location.href = "/login";
     }
   }, [app]);
