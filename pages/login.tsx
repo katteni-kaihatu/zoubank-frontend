@@ -11,10 +11,13 @@ import BankHeader from "@/components/BankHeader";
 import React, { useEffect } from "react";
 import { useApi } from "@/contexts/Api";
 import { useApplication } from "@/contexts/Application";
+import {router} from "next/client";
+import {useRouter} from "next/router";
 
 function LoginPage() {
   const app = useApplication();
   const api = useApi();
+  const router = useRouter();
 
   const handleLogin = () => {
     location.href = `https://auth.resonite.love?link=${location.origin}/login&linkType=REDIRECT`;
@@ -35,7 +38,7 @@ function LoginPage() {
             const redirectPath = localStorage.getItem("redirectPath");
             if (redirectPath) {
               localStorage.removeItem("redirectPath");
-              location.href = redirectPath;
+              router.push(redirectPath);
             } else {
                 location.href = "/";
             }
