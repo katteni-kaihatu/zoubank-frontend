@@ -11,7 +11,6 @@ import BankHeader from "@/components/BankHeader";
 import React, { useEffect } from "react";
 import { useApi } from "@/contexts/Api";
 import { useApplication } from "@/contexts/Application";
-import {router} from "next/client";
 import {useRouter} from "next/router";
 
 function LoginPage() {
@@ -45,7 +44,7 @@ function LoginPage() {
         }
       });
     }
-  }, [api]);
+  }, [api, router]);
 
   if (!app.appReady) return <></>;
 
